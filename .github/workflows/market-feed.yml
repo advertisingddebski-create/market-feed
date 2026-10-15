@@ -1,0 +1,45 @@
+name: market-feed
+
+on:
+  schedule:
+    - cron: "*/5 13-21 * * 1-5"
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-feed
+  cancel-in-progress: false
+
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Testy transformacji
+        run: python3 fetch_feed.py --selftest
+
+      - name: curl_cffi (odcisk TLS przegladarki; bez niego skrypt uzyje urllib)
+        run: python3 -m pip install -q --disable-pip-version-check curl_cffi || echo "curl_cffi niedostepny - urllib"
+
+      - name: Pobierz swiece z Yahoo
+        run: python3 fetch_feed.py --out "$RUNNER_TEMP/feed"
+
+      - name: Wypchnij na galaz market-feed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/feed"
+          git init -q -b market-feed
+          git config user.name "market-feed bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "feed $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push -q --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/market-feed
+          echo "wypchnieto $(find feed -name '*.json' | wc -l) plikow"
