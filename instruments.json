@@ -1,0 +1,20 @@
+{
+  "_doc": "Instrumenty feedu dla artefaktu „Pulpit sesji NY”. Dodanie instrumentu = nowy wiersz tutaj (po scaleniu do main workflow pobierze go przy następnym przebiegu, artefakt czyta listę z feed/index.json — bez zmian w kodzie). Pola: id (A-Z, 0-9, bez spacji; klucz rysunków w bazie artefaktu — nie zmieniaj istniejących), name (pełna nazwa), short (etykieta zakładki), yahoo (symbol Yahoo Finance: ^VIX, AAPL, GC=F, EURPLN=X, DX-Y.NYB), fallback (symbol zapasowy albo null), dec (miejsca po przecinku), group (indeksy | metale | fx | mag7 | inne — kolejność grup jak w tej liście), kind (opis pod nazwą), sample_base (cena startowa danych syntetycznych do testów). Yahoo: indeksy i akcje tylko w sesji (1m ≈ 7 dni wstecz), kontrakty i FX prawie 24 h; kontrakty COMEX/CME ok. 10 min opóźnienia.",
+  "instruments": [
+    {"id": "SPX", "name": "S&P 500", "short": "SPX", "yahoo": "^GSPC", "fallback": null, "dec": 2, "group": "indeksy", "kind": "indeks · sesja NY 9:30–16:00 ET", "sample_base": 7700},
+    {"id": "ES", "name": "S&P 500 futures", "short": "ES", "yahoo": "ES=F", "fallback": null, "dec": 2, "group": "indeksy", "kind": "kontrakt ES · prawie 24 h", "sample_base": 7750},
+    {"id": "VIX", "name": "VIX", "short": "VIX", "yahoo": "^VIX", "fallback": null, "dec": 2, "group": "indeksy", "kind": "indeks zmienności CBOE · sesja NY", "sample_base": 18},
+    {"id": "DXY", "name": "Indeks dolara", "short": "DXY", "yahoo": "DX-Y.NYB", "fallback": null, "dec": 3, "group": "indeksy", "kind": "DXY (ICE)", "sample_base": 102},
+    {"id": "XAUUSD", "name": "Złoto", "short": "XAU", "yahoo": "GC=F", "fallback": "XAUUSD=X", "dec": 2, "group": "metale", "kind": "kontrakt COMEX GC · Yahoo, ok. 10 min opóźnienia", "sample_base": 4170},
+    {"id": "XAGUSD", "name": "Srebro", "short": "XAG", "yahoo": "SI=F", "fallback": "XAGUSD=X", "dec": 3, "group": "metale", "kind": "kontrakt COMEX SI · Yahoo, ok. 10 min opóźnienia", "sample_base": 57},
+    {"id": "USDPLN", "name": "USDPLN", "short": "USDPLN", "yahoo": "USDPLN=X", "fallback": null, "dec": 4, "group": "fx", "kind": "forex", "sample_base": 3.89},
+    {"id": "EURPLN", "name": "EURPLN", "short": "EURPLN", "yahoo": "EURPLN=X", "fallback": null, "dec": 4, "group": "fx", "kind": "forex", "sample_base": 4.36},
+    {"id": "AAPL", "name": "Apple", "short": "AAPL", "yahoo": "AAPL", "fallback": null, "dec": 2, "group": "mag7", "kind": "akcje NASDAQ · sesja NY", "sample_base": 260},
+    {"id": "MSFT", "name": "Microsoft", "short": "MSFT", "yahoo": "MSFT", "fallback": null, "dec": 2, "group": "mag7", "kind": "akcje NASDAQ · sesja NY", "sample_base": 520},
+    {"id": "GOOGL", "name": "Alphabet", "short": "GOOGL", "yahoo": "GOOGL", "fallback": null, "dec": 2, "group": "mag7", "kind": "akcje NASDAQ · sesja NY", "sample_base": 250},
+    {"id": "AMZN", "name": "Amazon", "short": "AMZN", "yahoo": "AMZN", "fallback": null, "dec": 2, "group": "mag7", "kind": "akcje NASDAQ · sesja NY", "sample_base": 220},
+    {"id": "NVDA", "name": "NVIDIA", "short": "NVDA", "yahoo": "NVDA", "fallback": null, "dec": 2, "group": "mag7", "kind": "akcje NASDAQ · sesja NY", "sample_base": 185},
+    {"id": "META", "name": "Meta Platforms", "short": "META", "yahoo": "META", "fallback": null, "dec": 2, "group": "mag7", "kind": "akcje NASDAQ · sesja NY", "sample_base": 720},
+    {"id": "TSLA", "name": "Tesla", "short": "TSLA", "yahoo": "TSLA", "fallback": null, "dec": 2, "group": "mag7", "kind": "akcje NASDAQ · sesja NY", "sample_base": 430}
+  ]
+}
